@@ -84,4 +84,76 @@ def main():
         elif command == "status":
             show_status(player, neighbor, missions_completed, failed_missions)
             input("Press Enter to continue")
-            
+        
+        elif command == "help":
+            show_help()
+            input("Press Enter to continue")
+
+        else:
+            slow_print("invalid command, type 'help for list of commands.", 0.02)
+            input("Press Enter to continue")
+
+    if not game_over:
+        slow_print("Thank you for playing Sabotage Your Neighbor", 0.03)
+
+def move_neighbor(neighbor, rooms):
+    current_room = rooms[neighbor.current_room]
+    neighbor.current_room = random.choice(current_room.connected_rooms)
+
+    neighbor.move_count += 1
+
+    if neighbor.move_count % 3 == 0:
+        next_room = rooms[neighbor.current_room]
+        neighbor.current_room = random.choice(next_room.connected_rooms)
+
+def display_location(player, room, neighbor, rooms, missions):
+    clear_screen()
+    slow_print(f"You are in the {room.name}.", 0.02)
+    slow_print(f"Turn: {player.turn_count}, 0.02")
+
+    connected = ", ".join(room.connected_rooms)
+    slow_print(f"Connected rooms: {connected}, 0.02")
+    connected = ",".join(room.connected_rooms)
+    slow_print(f"Connected rooms: {connected}", 0.02)
+    
+    available_missions = [m for m in missions if m.room == room.name and not m.completed]
+    if available_missions:
+        slow_print("There are available sabotages in this room (use 'sabotage')", 0.02)
+
+    slow_print("\nAvailable actions:", 0.02)
+    slow_print("- move to [room name]", 0.02)
+    slow_print("- listen (for neighbor)", 0.02)
+    slow_print("- Status", 0.02)
+    slow_print("- help", 0.02)
+    if available_missions:
+        slow_print("- sabotage", 0.02)
+    
+def solve_math_problem():
+    num1 = random.radint(1, 20)
+    num2 = random.radint(1, 20)
+    operation = random.choice(["+", "-", "*"])
+    if operation == "+":
+        answer = num1 + num2
+        problem = f"What is {num1} + {num2}?"
+    elif operation == "-":
+        if num1 < num2:
+            num1, num2 = num2, num1
+
+        answer = num1 - num2
+        problem = f"what is {num1} * {num2}?"
+    else:
+        num1 = random.radint(1, 10)
+        num2 = random.radint(1, 10)
+        answer = num1 * num2
+        problem = f"What is {num1} * {num2}?"
+
+    slow_print("\nAnswer math problem to complete sabotage:", 0.02)
+    slow_print(problem, 0.02)
+
+    try:
+        user_answer = int(input("Your answer: ").strip())
+        return user_answer == answer
+    except ValueError:
+         slow_print("answer not valid", 0.02)
+        return False
+
