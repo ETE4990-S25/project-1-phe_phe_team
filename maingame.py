@@ -84,3 +84,4 @@ def main():
         elif command == "status":
             show_status(player, neighbor, missions_completed, failed_missions)
             input("Press Enter to continue")
+            
