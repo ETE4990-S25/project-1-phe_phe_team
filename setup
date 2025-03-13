@@ -1,3 +1,38 @@
-#yo 
-#something is going wrong 
-#one more test
+from player.py import player 
+from neighbor.py import Neighbor 
+from room.py import Room
+from mission.py import Mission
+from game_utils.py import clear_screen, slow_print
+
+def initalize_game():
+    "Set up the game environment and all game objects."
+
+    rooms={
+        "Living Room": Room ("Living Room", ["Kitchen", "Hallway"]),
+        "Kitchen" : Room ("Kitchen",["Living Room", "Backyard"]),
+        "Hallway": Room ("Hallway", ["Living Room", "Bedroom", "Bathroom"]),
+        "Bedroom": Room ("Bedroom", ["Hallway","Office"]),
+        "Bathroom": Room ("Bathroom", ["Hallway"]),
+        "Office": Room ("Office", ["Bedroom"]),
+        "Backyard": Room ("Backyard", ["Kitchen"]),
+    }
+
+    missions = [
+        Mission ("Hide the TV remote under the couch cushions", "Living Room"),
+        Mission ("Switch the sugar with the salt", "Kitchen"),
+        Mission ("Set all the clocks to diffrent times","Living Room"),
+        Mission ("Unplug the WiFi router", "Office"),
+        Mission ("Move your neighbor's car keys", "Hallway"),
+        Mission ("Turn off the hot water in the shower", "Bathroom"),
+        Mission ("Hide important papers in the wrong folders", "Office"),
+        Mission ("Rearrange items in the refrigerator", "Kitchen"),
+        Mission ("Change the thermostat settings","Hallway"),
+        Mission ("Replace regular coffee with decaf", "Kitchen"),
+        Mission ("Put plastic wrap on the toilet seat", "Bathroom"),
+        Mission ("Take all the pens from the desk", "Office"),
+        Mission ("Turn alarms off on your neighbor's phone", "Bedroom"),
+        Mission ("Slightly move furniture so they stub their toe", "Living Room"),
+        Mission ("Leave the tap dripping slightly", "Bathroom"),
+    ]
+
+
