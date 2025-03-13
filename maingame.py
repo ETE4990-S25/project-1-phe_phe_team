@@ -157,3 +157,68 @@ def solve_math_problem():
          slow_print("answer not valid", 0.02)
         return False
 
+def neighbor_gets_closer(neighbor, player, rooms):
+    path = find_path_to_player(neighbor.current_room, player.current_room, rooms)
+    if len(path) > 1:
+        neighbor.current_room = path[1]
+        slow_print("You just heard your neighbor get closer, careful", 0.02)
+
+def find_path_to_player(start_room, target_room, rooms):
+    queue = [[start_room]]
+    visited = set([start_room])
+
+    while queue:
+        path = queue.pop(0)
+        current = path [-1]
+
+        if current == target_room:
+            return path
+        
+        for next_room in rooms[current].connected_rooms:
+            if next_room not in visited:
+                visited.add(next_room)
+                new_path = list(path)
+                new_path.append(next_room)
+                queue.append(new_path)
+    return [start_room]
+
+def listen_for_neighbor(player, neighbor, rooms):
+    distance = len(find_path_to_player(player.current_room, neighbor.current_room, rooms)) - 1
+
+    if distance == 0:
+        slow_print("Run!!! your neighbor is in this room!!!", 0.02)
+    elif distance == 1:
+        slow_print("You just heard your neighbor in a connected room careful", 0.02)
+    elif distance == 2:
+        slow_print("Your neighbor's footsteps are not too far away watch out", 0.02)
+    else:
+        slow_print("You hear your neighbor upstairs so you are good for now", 0.02)
+
+    slow_print(f"Your neighbor is in the {neighbor.current_room}", 0.02)
+
+def show_status(player, neihgbor, missions_completed, failed_missions):
+    clear_screen()
+    slow_print("== STATUS ==", 0.02)
+    slow_print(f"Current room: {player.current_room}", 0.02)
+    slow_print(f"Missions completed: {missions_completed}/5", 0.02)
+    slow_print(f"Missions failed: {failed_missions}/3", 0.02)
+    slow_print(f"Turns played: {player.turn_count}", 0.02)
+
+def show_game_over(message, success):
+    clear_screen()
+    if success:
+        slow_print("== VICTORY ==", 0.03)
+    else:
+        slow_print("== GAME OVER", 0.03)
+
+    slow_print(message, 0.03)
+    input("\nPress Enter to exit game")
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\nGame ended by user")
+    except Exception as e:
+        print(f"An error has occurred: {e}")
+            
