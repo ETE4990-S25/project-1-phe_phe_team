@@ -1,9 +1,7 @@
-<<<<<<< HEAD
 #this is the abilities file
 #commit test 
 input()
 print (abilities)
-=======
 from player.py import player 
 from neighbor.py import Neighbor 
 from room.py import Room
@@ -59,4 +57,20 @@ def show_intro():
     slow_print("\nCommands:", 0.03)
     slow_print("- move to [room name]: Go to a connected room", 0.02)
     slow_print("- sabotage: Attempt to complete a sabotage mission in the current room", 0.02)
->>>>>>> 935312bb4299e51fbf95ef50579ebfab3fd1b37b
+    slow_print("- listen: Try to hear where your neighbor is", 0.02)
+    slow_print("- ststus: Check your progress", 0.02)
+    slow_print("- help: Show availbe commands", 0.02)
+    slow_print("- quit: Exit the game", 0.02)
+    slow_print("\nTo Complete a sabotage, you'll need to anwser a math questoion correctly.", 0.03)
+    slow_print("If you get it wrong, the neighhbor will move closer to your location!", 0.03)
+    slow_print("\nGood luck, and don't get caught!", 0.03)
+    input("\nPress Enter to start the game")
+
+def show_help():
+    "Display available commands."
+    slow_print("\nCommands:", 0.02)
+    slow_print("- move to [room nam]: Go to a connected room", 0.02)
+    slow_print("- sabotage: Attempt to complete a sabotage mission in the current room", 0.02)
+    slow_print("- status: Check your progress", 0.02)
+    slow_print("- help: Show available commands", 0.02)
+    slow_print("- quit: Exit the game", 0.02)
