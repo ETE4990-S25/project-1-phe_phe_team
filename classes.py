@@ -1,22 +1,23 @@
 class Player:
-    def _init_ (self,name):
+    def __init__ (self,name,room = "Living Room", turn=0):
         self.name = name
-        self.current_room = "Living Room"
-        self.turn_count = 0
+        self.current_room = room
+        self.turn_count = turn
 
-class Neighbor:
-    def _init_(self,name):
-        self.name = name
-        self.current_room = "Bedroom"
+class Neighbor(Player):
+    def __init__(self,name):
+        super().__init__(name, "Bedroom")
+       # self.name = name
+       # self.current_room = "Bedroom"
         self.move_count = 0
 
 class Room:
-    def _init_(self,name,conected_rooms):
+    def __init__(self,name,conected_rooms):
         self.name = name
         self.conected_rooms = conected_rooms
 
 class Mission:
-    def _init_(self, description, room):
+    def __init__(self, description, room):
         self.description = description
         self.room = room
         self.completed = False

@@ -3,16 +3,18 @@ import time
 import sys
 import os
 
-from game_setup import iniialize_game, show_intro, show_help
-from player import Player
-from neighbor import Neighbor
-from room import Room
-from mission import Mission
-from game_utils import clear_screen, slow_print
+from setup import initalize_game, show_intro, show_help
+from classes import Player
+from classes import Neighbor
+from classes import Room
+from classes import Mission
+from utils import clear_screen, slow_print
 
+SLOW_PRINT_SPEED = 0.01
 def main():
+   
     show_intro()
-    player, neighbor, rooms, missions = initialize_game()
+    player, neighbor, rooms, missions = initalize_game()
 
     current_room = rooms ["Living Room"]
     player.current_room = current_room.name
@@ -48,33 +50,33 @@ def main():
 
         if command.startswith("move to "):
             destination = command[8:].title()
-            if destination in current_room.connected_rooms:
+            if destination in current_room.conected_rooms:
                 current_room = rooms[destination]
                 player.current_room = current_room.name
-                slow_print(f"Moving to {destination}", 0.02)
+                slow_print(f"Moving to {destination}", SLOW_PRINT_SPEED)
                 time.sleep(1)
             else:
-                slow_print(f"The location you selected isn't connected to your current location", 0.02)
+                slow_print(f"The location you selected isn't connected to your current location", SLOW_PRINT_SPEED)
                 input("press Enter to continue")
 
         elif command == "sabotage":
             available_missions = [m for m in missions if m.room == current_room.name and not m.completed]
             if available_missions:
                 mission = random.choice(available_missions)
-                slow_print (f"Mission: {mission.description}", 0.02)
+                slow_print (f"Mission: {mission.description}", SLOW_PRINT_SPEED)
 
                 if solve_math_problem():
-                    slow_print("congrats you have sabotaged your neighbor", 0.02)
+                    slow_print("congrats you have sabotaged your neighbor", SLOW_PRINT_SPEED)
                     mission.completed = True
                     missions_completed += 1
-                    slow_print(f"Missions completed: {missions_completed}/5", 0.02)
+                    slow_print(f"Missions completed: {missions_completed}/5", SLOW_PRINT_SPEED)
                 else:
-                    slow_print("You failed to sabotage your neighbor", 0.02)
+                    slow_print("You failed to sabotage your neighbor", SLOW_PRINT_SPEED)
                     failed_missions += 1
-                    slow_print(f"Missions failed: {failed_missions}/3", 0.02)
-                    neighbor_gets_closer(nighbor, player, rooms)
+                    slow_print(f"Missions failed: {failed_missions}/3", SLOW_PRINT_SPEED)
+                    neighbor_gets_closer(neighbor, player, rooms)
             else:
-                slow_print("No available sabotage missions in this room.", 0.02)
+                slow_print("No available sabotage missions in this room.", SLOW_PRINT_SPEED)
             input("Press Enter to continue")
 
         elif command == "listen":
@@ -90,7 +92,7 @@ def main():
             input("Press Enter to continue")
 
         else:
-            slow_print("invalid command, type 'help for list of commands.", 0.02)
+            slow_print("invalid command, type 'help for list of commands.", SLOW_PRINT_SPEED)
             input("Press Enter to continue")
 
     if not game_over:
@@ -98,35 +100,35 @@ def main():
 
 def move_neighbor(neighbor, rooms):
     current_room = rooms[neighbor.current_room]
-    neighbor.current_room = random.choice(current_room.connected_rooms)
-
+    neighbor.current_room = random.choice(current_room.conected_rooms)
+    
     neighbor.move_count += 1
 
     if neighbor.move_count % 3 == 0:
         next_room = rooms[neighbor.current_room]
-        neighbor.current_room = random.choice(next_room.connected_rooms)
+        neighbor.current_room = random.choice(next_room.conected_rooms)
 
 def display_location(player, room, neighbor, rooms, missions):
     clear_screen()
-    slow_print(f"You are in the {room.name}.", 0.02)
-    slow_print(f"Turn: {player.turn_count}, 0.02")
+    slow_print(f"You are in the {room.name}.", SLOW_PRINT_SPEED)
+    slow_print(f"Turn: {player.turn_count}", SLOW_PRINT_SPEED)
 
-    connected = ", ".join(room.connected_rooms)
-    slow_print(f"Connected rooms: {connected}, 0.02")
-    connected = ",".join(room.connected_rooms)
-    slow_print(f"Connected rooms: {connected}", 0.02)
+    connected = ", ".join(room.conected_rooms)
+    slow_print(f"Connected rooms: {connected}", SLOW_PRINT_SPEED)
+    connected = ",".join(room.conected_rooms)
+    slow_print(f"Connected rooms: {connected}", SLOW_PRINT_SPEED)
     
     available_missions = [m for m in missions if m.room == room.name and not m.completed]
     if available_missions:
-        slow_print("There are available sabotages in this room (use 'sabotage')", 0.02)
+        slow_print("There are available sabotages in this room (use 'sabotage')", SLOW_PRINT_SPEED)
 
-    slow_print("\nAvailable actions:", 0.02)
-    slow_print("- move to [room name]", 0.02)
-    slow_print("- listen (for neighbor)", 0.02)
-    slow_print("- Status", 0.02)
-    slow_print("- help", 0.02)
+    slow_print("\nAvailable actions:", SLOW_PRINT_SPEED)
+    slow_print("- move to [room name]", SLOW_PRINT_SPEED)
+    slow_print("- listen (for neighbor)", SLOW_PRINT_SPEED)
+    slow_print("- Status", SLOW_PRINT_SPEED)
+    slow_print("- help", SLOW_PRINT_SPEED)
     if available_missions:
-        slow_print("- sabotage", 0.02)
+        slow_print("- sabotage", SLOW_PRINT_SPEED)
     
 def solve_math_problem():
     num1 = random.radint(1, 20)
@@ -147,21 +149,21 @@ def solve_math_problem():
         answer = num1 * num2
         problem = f"What is {num1} * {num2}?"
 
-    slow_print("\nAnswer math problem to complete sabotage:", 0.02)
-    slow_print(problem, 0.02)
+    slow_print("\nAnswer math problem to complete sabotage:", SLOW_PRINT_SPEED)
+    slow_print(problem, SLOW_PRINT_SPEED)
 
     try:
         user_answer = int(input("Your answer: ").strip())
         return user_answer == answer
     except ValueError:
-         slow_print("answer not valid", 0.02)
+        slow_print("answer not valid", SLOW_PRINT_SPEED)
         return False
 
 def neighbor_gets_closer(neighbor, player, rooms):
     path = find_path_to_player(neighbor.current_room, player.current_room, rooms)
     if len(path) > 1:
         neighbor.current_room = path[1]
-        slow_print("You just heard your neighbor get closer, careful", 0.02)
+        slow_print("You just heard your neighbor get closer, careful", SLOW_PRINT_SPEED)
 
 def find_path_to_player(start_room, target_room, rooms):
     queue = [[start_room]]
@@ -174,7 +176,7 @@ def find_path_to_player(start_room, target_room, rooms):
         if current == target_room:
             return path
         
-        for next_room in rooms[current].connected_rooms:
+        for next_room in rooms[current].conected_rooms:
             if next_room not in visited:
                 visited.add(next_room)
                 new_path = list(path)
@@ -186,23 +188,23 @@ def listen_for_neighbor(player, neighbor, rooms):
     distance = len(find_path_to_player(player.current_room, neighbor.current_room, rooms)) - 1
 
     if distance == 0:
-        slow_print("Run!!! your neighbor is in this room!!!", 0.02)
+        slow_print("Run!!! your neighbor is in this room!!!", SLOW_PRINT_SPEED)
     elif distance == 1:
-        slow_print("You just heard your neighbor in a connected room careful", 0.02)
+        slow_print("You just heard your neighbor in a connected room careful", SLOW_PRINT_SPEED)
     elif distance == 2:
-        slow_print("Your neighbor's footsteps are not too far away watch out", 0.02)
+        slow_print("Your neighbor's footsteps are not too far away watch out", SLOW_PRINT_SPEED)
     else:
-        slow_print("You hear your neighbor upstairs so you are good for now", 0.02)
+        slow_print("You hear your neighbor upstairs so you are good for now", SLOW_PRINT_SPEED)
 
-    slow_print(f"Your neighbor is in the {neighbor.current_room}", 0.02)
+    slow_print(f"Your neighbor is in the {neighbor.current_room}", SLOW_PRINT_SPEED)
 
 def show_status(player, neihgbor, missions_completed, failed_missions):
     clear_screen()
-    slow_print("== STATUS ==", 0.02)
-    slow_print(f"Current room: {player.current_room}", 0.02)
-    slow_print(f"Missions completed: {missions_completed}/5", 0.02)
-    slow_print(f"Missions failed: {failed_missions}/3", 0.02)
-    slow_print(f"Turns played: {player.turn_count}", 0.02)
+    slow_print("== STATUS ==", SLOW_PRINT_SPEED)
+    slow_print(f"Current room: {player.current_room}", SLOW_PRINT_SPEED)
+    slow_print(f"Missions completed: {missions_completed}/5", SLOW_PRINT_SPEED)
+    slow_print(f"Missions failed: {failed_missions}/3", SLOW_PRINT_SPEED)
+    slow_print(f"Turns played: {player.turn_count}", SLOW_PRINT_SPEED)
 
 def show_game_over(message, success):
     clear_screen()

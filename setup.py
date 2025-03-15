@@ -1,13 +1,13 @@
 #this is the abilities file
 #commit test 
-input()
-print (abilities)
-from player.py import player 
-from neighbor.py import Neighbor 
-from room.py import Room
-from mission.py import Mission
-from game_utils.py import clear_screen, slow_print
-
+#input()
+#print (abilities)
+from classes import Player 
+from classes import Neighbor 
+from classes import Room
+from classes import Mission
+from utils import clear_screen, slow_print
+SLOW_PRINT_SPEED = 0.01
 def initalize_game():
     "Set up the game environment and all game objects."
 
@@ -48,29 +48,29 @@ def initalize_game():
 def show_intro():
     "Display the game introduction"
     clear_screen()
-    slow_print("NEIGHBOR SABOTAGE", 0.05)
-    slow_print("================", 0.05)
-    slow_print("\nYour neighvor has been annoying you for months with loud music and parties.", 0.3)
-    slow_print("It's time for revenge ! Sneak ibto their house and sabotage their daily routine.", 0.03)
-    slow_print("Complete 5 sabotage missions before you get caught or faail 3 times.", 0.03)
-    slow_print("Your neighbor is moving around the house - listen for their location and avoid them!", 0.03)
-    slow_print("\nCommands:", 0.03)
-    slow_print("- move to [room name]: Go to a connected room", 0.02)
-    slow_print("- sabotage: Attempt to complete a sabotage mission in the current room", 0.02)
-    slow_print("- listen: Try to hear where your neighbor is", 0.02)
-    slow_print("- ststus: Check your progress", 0.02)
-    slow_print("- help: Show availbe commands", 0.02)
-    slow_print("- quit: Exit the game", 0.02)
-    slow_print("\nTo Complete a sabotage, you'll need to anwser a math questoion correctly.", 0.03)
-    slow_print("If you get it wrong, the neighhbor will move closer to your location!", 0.03)
-    slow_print("\nGood luck, and don't get caught!", 0.03)
+    slow_print("NEIGHBOR SABOTAGE", SLOW_PRINT_SPEED)
+    slow_print("================", SLOW_PRINT_SPEED)
+    slow_print("\nYour neighvor has been annoying you for months with loud music and parties.", SLOW_PRINT_SPEED)
+    slow_print("It's time for revenge ! Sneak ibto their house and sabotage their daily routine.", SLOW_PRINT_SPEED)
+    slow_print("Complete 5 sabotage missions before you get caught or faail 3 times.", SLOW_PRINT_SPEED)
+    slow_print("Your neighbor is moving around the house - listen for their location and avoid them!", SLOW_PRINT_SPEED)
+    slow_print("\nCommands:", SLOW_PRINT_SPEED)
+    slow_print("- move to [room name]: Go to a connected room", SLOW_PRINT_SPEED)
+    slow_print("- sabotage: Attempt to complete a sabotage mission in the current room", SLOW_PRINT_SPEED)
+    slow_print("- listen: Try to hear where your neighbor is", SLOW_PRINT_SPEED)
+    slow_print("- ststus: Check your progress", SLOW_PRINT_SPEED)
+    slow_print("- help: Show availbe commands", SLOW_PRINT_SPEED)
+    slow_print("- quit: Exit the game", SLOW_PRINT_SPEED)
+    slow_print("\nTo Complete a sabotage, you'll need to anwser a math questoion correctly.", SLOW_PRINT_SPEED)
+    slow_print("If you get it wrong, the neighhbor will move closer to your location!", SLOW_PRINT_SPEED)
+    slow_print("\nGood luck, and don't get caught!", SLOW_PRINT_SPEED)
     input("\nPress Enter to start the game")
 
 def show_help():
     "Display available commands."
-    slow_print("\nCommands:", 0.02)
-    slow_print("- move to [room nam]: Go to a connected room", 0.02)
-    slow_print("- sabotage: Attempt to complete a sabotage mission in the current room", 0.02)
-    slow_print("- status: Check your progress", 0.02)
-    slow_print("- help: Show available commands", 0.02)
-    slow_print("- quit: Exit the game", 0.02)
+    slow_print("\nCommands:", SLOW_PRINT_SPEED)
+    slow_print("- move to [room nam]: Go to a connected room", SLOW_PRINT_SPEED)
+    slow_print("- sabotage: Attempt to complete a sabotage mission in the current room", SLOW_PRINT_SPEED)
+    slow_print("- status: Check your progress", SLOW_PRINT_SPEED)
+    slow_print("- help: Show available commands", SLOW_PRINT_SPEED)
+    slow_print("- quit: Exit the game", SLOW_PRINT_SPEED)
