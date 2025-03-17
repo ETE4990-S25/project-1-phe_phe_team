@@ -7,10 +7,13 @@ from classes import Neighbor
 from classes import Room
 from classes import Mission
 from utils import clear_screen, slow_print
+
 SLOW_PRINT_SPEED = 0.01
+
+
 def initalize_game():
     "Set up the game environment and all game objects."
-
+    #Defines rooms and how they are connectedd
     rooms={
         "Living Room": Room ("Living Room", ["Kitchen", "Hallway"]),
         "Kitchen" : Room ("Kitchen",["Living Room", "Backyard"]),
@@ -21,6 +24,7 @@ def initalize_game():
         "Backyard": Room ("Backyard", ["Kitchen"]),
     }
 
+    #Defines sabotage mission
     missions = [
         Mission ("Hide the TV remote under the couch cushions", "Living Room"),
         Mission ("Switch the sugar with the salt", "Kitchen"),
@@ -39,8 +43,10 @@ def initalize_game():
         Mission ("Leave the tap dripping slightly", "Bathroom"),
     ]
 
+    #Creates the player
     player = Player ("Sabatager")
 
+    #Creates the Neighbor
     neighbor = Neighbor ("Mr.Powers")
 
     return player,neighbor, rooms, missions
