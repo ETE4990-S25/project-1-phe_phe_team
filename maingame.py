@@ -15,32 +15,32 @@ def main():
    
     show_intro()
     player, neighbor, rooms, missions = initalize_game()
-
+#player starts the game in the living room
     current_room = rooms ["Living Room"]
     player.current_room = current_room.name
-
+#this is the main game functions and loop
     game_running = True
     game_over = False
     turn = 0
     missions_completed = 0
     failed_missions = 0
-
+#the neighbor moves through the house during game
     while game_running:
         turn += 1
         player.turn_count = turn
         move_neighbor(neighbor, rooms)
         display_location(player, current_room, neighbor, rooms, missions)
-
+#this checks if the player got caught by the neighbor
         if neighbor.current_room == player.current_room:
             game_over = True
             show_game_over("You have been caught by your neighbor", False)
             break
-
+#the game is over when 5 sabotages are completed
         if missions_completed >= 5:
             game_over = True
             show_game_over("You have completed 5 sabotage missions, your neighbor is now having a terrible day", True)
             break
-
+#if you fail 3 missions you lose the game
         if failed_missions >= 3:
             game_over = True
             show_game_over("you have failed 3 missions, your neigbor's day went too good", False)
@@ -58,13 +58,13 @@ def main():
             else:
                 slow_print(f"The location you selected isn't connected to your current location", SLOW_PRINT_SPEED)
                 input("press Enter to continue")
-
+#this checks if there are any available sabotages in the current room
         elif command == "sabotage":
             available_missions = [m for m in missions if m.room == current_room.name and not m.completed]
             if available_missions:
                 mission = random.choice(available_missions)
                 slow_print (f"Mission: {mission.description}", SLOW_PRINT_SPEED)
-
+#this gives a math problem in order to complete the sabotage
                 if solve_math_problem():
                     slow_print("congrats you have sabotaged your neighbor", SLOW_PRINT_SPEED)
                     mission.completed = True
@@ -78,7 +78,7 @@ def main():
             else:
                 slow_print("No available sabotage missions in this room.", SLOW_PRINT_SPEED)
             input("Press Enter to continue")
-
+#the neighbor gets close when a sabotage mission is failed
         elif command == "listen":
             listen_for_neighbor(player, neighbor,rooms)
             input("Press Enter to continue")
@@ -117,11 +117,11 @@ def display_location(player, room, neighbor, rooms, missions):
     slow_print(f"Connected rooms: {connected}", SLOW_PRINT_SPEED)
     connected = ",".join(room.conected_rooms)
     slow_print(f"Connected rooms: {connected}", SLOW_PRINT_SPEED)
-    
+#this checks for available sabotages in the current room    
     available_missions = [m for m in missions if m.room == room.name and not m.completed]
     if available_missions:
         slow_print("There are available sabotages in this room (use 'sabotage')", SLOW_PRINT_SPEED)
-
+#these are all the available actions 
     slow_print("\nAvailable actions:", SLOW_PRINT_SPEED)
     slow_print("- move to [room name]", SLOW_PRINT_SPEED)
     slow_print("- listen (for neighbor)", SLOW_PRINT_SPEED)
@@ -129,7 +129,7 @@ def display_location(player, room, neighbor, rooms, missions):
     slow_print("- help", SLOW_PRINT_SPEED)
     if available_missions:
         slow_print("- sabotage", SLOW_PRINT_SPEED)
-    
+#generates random math problems for the player to solve   
 def solve_math_problem():
     num1 = random.radint(1, 20)
     num2 = random.radint(1, 20)
@@ -158,7 +158,7 @@ def solve_math_problem():
     except ValueError:
         slow_print("answer not valid", SLOW_PRINT_SPEED)
         return False
-
+#this moves the neighbor one step closer to the player
 def neighbor_gets_closer(neighbor, player, rooms):
     path = find_path_to_player(neighbor.current_room, player.current_room, rooms)
     if len(path) > 1:
@@ -186,7 +186,7 @@ def find_path_to_player(start_room, target_room, rooms):
 
 def listen_for_neighbor(player, neighbor, rooms):
     distance = len(find_path_to_player(player.current_room, neighbor.current_room, rooms)) - 1
-
+#these are hints to where the neighbor is
     if distance == 0:
         slow_print("Run!!! your neighbor is in this room!!!", SLOW_PRINT_SPEED)
     elif distance == 1:
