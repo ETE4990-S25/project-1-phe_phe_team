@@ -115,17 +115,16 @@ def display_location(player, room, neighbor, rooms, missions):
 
     connected = ", ".join(room.conected_rooms)
     slow_print(f"Connected rooms: {connected}", SLOW_PRINT_SPEED)
-    connected = ",".join(room.conected_rooms)
-    slow_print(f"Connected rooms: {connected}", SLOW_PRINT_SPEED)
+   
 #this checks for available sabotages in the current room    
     available_missions = [m for m in missions if m.room == room.name and not m.completed]
     if available_missions:
         slow_print("There are available sabotages in this room (use 'sabotage')", SLOW_PRINT_SPEED)
 #these are all the available actions 
     slow_print("\nAvailable actions:", SLOW_PRINT_SPEED)
-    slow_print("- move to [room name]", SLOW_PRINT_SPEED)
+    slow_print("- move to next room [room name]", SLOW_PRINT_SPEED)
     slow_print("- listen (for neighbor)", SLOW_PRINT_SPEED)
-    slow_print("- Status", SLOW_PRINT_SPEED)
+    slow_print("- status", SLOW_PRINT_SPEED)
     slow_print("- help", SLOW_PRINT_SPEED)
     if available_missions:
         slow_print("- sabotage", SLOW_PRINT_SPEED)
@@ -142,10 +141,10 @@ def solve_math_problem():
             num1, num2 = num2, num1
 
         answer = num1 - num2
-        problem = f"what is {num1} * {num2}?"
+        problem = f"what is {num1} - {num2}?"
     else:
-        num1 = random.radint(1, 10)
-        num2 = random.radint(1, 10)
+        num1 = random.radint(1, 20)
+        num2 = random.radint(1, 20)
         answer = num1 * num2
         problem = f"What is {num1} * {num2}?"
 
@@ -188,7 +187,7 @@ def listen_for_neighbor(player, neighbor, rooms):
     distance = len(find_path_to_player(player.current_room, neighbor.current_room, rooms)) - 1
 #these are hints to where the neighbor is
     if distance == 0:
-        slow_print("Run!!! your neighbor is in this room!!!", SLOW_PRINT_SPEED)
+        slow_print("Run!!! Your neighbor is in this room!!!", SLOW_PRINT_SPEED)
     elif distance == 1:
         slow_print("You just heard your neighbor in a connected room careful", SLOW_PRINT_SPEED)
     elif distance == 2:
@@ -198,7 +197,7 @@ def listen_for_neighbor(player, neighbor, rooms):
 
     slow_print(f"Your neighbor is in the {neighbor.current_room}", SLOW_PRINT_SPEED)
 
-def show_status(player, neihgbor, missions_completed, failed_missions):
+def show_status(player, neighbor, missions_completed, failed_missions):
     clear_screen()
     slow_print("== STATUS ==", SLOW_PRINT_SPEED)
     slow_print(f"Current room: {player.current_room}", SLOW_PRINT_SPEED)
@@ -211,7 +210,7 @@ def show_game_over(message, success):
     if success:
         slow_print("== VICTORY ==", 0.03)
     else:
-        slow_print("== GAME OVER", 0.03)
+        slow_print("== GAME OVER ==", 0.03)
 
     slow_print(message, 0.03)
     input("\nPress Enter to exit game")

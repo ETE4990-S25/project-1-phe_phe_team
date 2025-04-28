@@ -23,6 +23,8 @@ def initialize_game():
         "Office": Room ("Office", ["Bedroom"]),
         "Backyard": Room ("Backyard", ["Kitchen"]),
     }
+    if any(room_name not in rooms for room_name in rooms.connected_rooms):
+        print("Error: Invalid room connection detected!")
 
     #Defines sabotage mission
     missions = [
@@ -44,7 +46,7 @@ def initialize_game():
     ]
 
     #Creates the player
-    player = Player ("Sabatager")
+    player = Player ("Saboteur")
 
     #Creates the Neighbor
     neighbor = Neighbor ("Mr.Powers")
@@ -56,26 +58,26 @@ def show_intro():
     clear_screen()
     slow_print("NEIGHBOR SABOTAGE", SLOW_PRINT_SPEED)
     slow_print("================", SLOW_PRINT_SPEED)
-    slow_print("\nYour neighvor has been annoying you for months with loud music and parties.", SLOW_PRINT_SPEED)
-    slow_print("It's time for revenge ! Sneak ibto their house and sabotage their daily routine.", SLOW_PRINT_SPEED)
-    slow_print("Complete 5 sabotage missions before you get caught or faail 3 times.", SLOW_PRINT_SPEED)
-    slow_print("Your neighbor is moving around the house - listen for their location and avoid them!", SLOW_PRINT_SPEED)
-    slow_print("\nCommands:", SLOW_PRINT_SPEED)
-    slow_print("- move to [room name]: Go to a connected room", SLOW_PRINT_SPEED)
-    slow_print("- sabotage: Attempt to complete a sabotage mission in the current room", SLOW_PRINT_SPEED)
-    slow_print("- listen: Try to hear where your neighbor is", SLOW_PRINT_SPEED)
-    slow_print("- ststus: Check your progress", SLOW_PRINT_SPEED)
-    slow_print("- help: Show availbe commands", SLOW_PRINT_SPEED)
-    slow_print("- quit: Exit the game", SLOW_PRINT_SPEED)
-    slow_print("\nTo Complete a sabotage, you'll need to anwser a math questoion correctly.", SLOW_PRINT_SPEED)
-    slow_print("If you get it wrong, the neighhbor will move closer to your location!", SLOW_PRINT_SPEED)
+    slow_print("\nYour neighvor has been annoying you for months with loud music and parties.",
+                "\nIt's time for revenge ! Sneak into their house and sabotage their daily routine.",
+                "\nComplete 5 sabotage missions before you get caught or fail 3 times.",
+                "\nYour neighbor is moving around the house - listen for their location and avoid them!",SLOW_PRINT_SPEED)
+    slow_print("\nCommands:",
+               "\n- move to [room name]: Go to a connected room",
+                "\n- sabotage: Attempt to complete a sabotage mission in the current room",
+                "\n- listen: Try to hear where your neighbor is",
+                "\n- status: Check your progress",
+                "\n- help: Show available commands",
+                "\n- quit: Exit the game", SLOW_PRINT_SPEED)
+    slow_print("\nTo Complete a sabotage, you'll need to answer a math question correctly.",
+               "\nIf you get it wrong, the neighhbor will move closer to your location!", SLOW_PRINT_SPEED)
     slow_print("\nGood luck, and don't get caught!", SLOW_PRINT_SPEED)
     input("\nPress Enter to start the game")
 
 def show_help():
     """Display available commands."""
     slow_print("\nCommands:", SLOW_PRINT_SPEED)
-    slow_print("- move to [room nam]: Go to a connected room", SLOW_PRINT_SPEED)
+    slow_print("- move to [room name]: Go to a connected room", SLOW_PRINT_SPEED)
     slow_print("- sabotage: Attempt to complete a sabotage mission in the current room", SLOW_PRINT_SPEED)
     slow_print("- status: Check your progress", SLOW_PRINT_SPEED)
     slow_print("- help: Show available commands", SLOW_PRINT_SPEED)
