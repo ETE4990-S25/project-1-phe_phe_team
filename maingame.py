@@ -3,7 +3,7 @@ import time
 import sys
 import os
 
-from setup import initalize_game, show_intro, show_help
+from setup import initialize_game, show_intro, show_help
 from classes import Player
 from classes import Neighbor
 from classes import Room
@@ -14,7 +14,7 @@ SLOW_PRINT_SPEED = 0.01
 def main():
    
     show_intro()
-    player, neighbor, rooms, missions = initalize_game()
+    player, neighbor, rooms, missions = initialize_game()
 #player starts the game in the living room
     current_room = rooms ["Living Room"]
     player.current_room = current_room.name

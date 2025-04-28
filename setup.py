@@ -11,8 +11,8 @@ from utils import clear_screen, slow_print
 SLOW_PRINT_SPEED = 0.01
 
 
-def initalize_game():
-    "Set up the game environment and all game objects."
+def initialize_game():
+    """Set up the game environment and all game objects."""
     #Defines rooms and how they are connectedd
     rooms={
         "Living Room": Room ("Living Room", ["Kitchen", "Hallway"]),
@@ -52,7 +52,7 @@ def initalize_game():
     return player,neighbor, rooms, missions
 
 def show_intro():
-    "Display the game introduction"
+    """Display the game introduction"""
     clear_screen()
     slow_print("NEIGHBOR SABOTAGE", SLOW_PRINT_SPEED)
     slow_print("================", SLOW_PRINT_SPEED)
@@ -73,7 +73,7 @@ def show_intro():
     input("\nPress Enter to start the game")
 
 def show_help():
-    "Display available commands."
+    """Display available commands."""
     slow_print("\nCommands:", SLOW_PRINT_SPEED)
     slow_print("- move to [room nam]: Go to a connected room", SLOW_PRINT_SPEED)
     slow_print("- sabotage: Attempt to complete a sabotage mission in the current room", SLOW_PRINT_SPEED)
